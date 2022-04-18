@@ -17,3 +17,7 @@ The worst case scenario is when the last 2 numbers of the array are the correct 
   - Although we will be reducing the number of elements we search for as the current index increases, it doesn't really change the time complexity that much.
 
 **Time Complexity = O(n\*log(n))**
+
+## Space Complexity
+
+Simply **O(n)** because we only loop through the array once.
