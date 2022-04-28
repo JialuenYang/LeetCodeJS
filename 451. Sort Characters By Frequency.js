@@ -3,6 +3,7 @@
  * @return {string}
  */
 var frequencySort = function (s) {
+	// Solution is extremely slow for some reason
 	const map = new Map();
 	for (let i = 0; i < s.length; i++) {
 		if (map.has(s[i])) {
