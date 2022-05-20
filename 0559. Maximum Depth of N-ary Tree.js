@@ -19,5 +19,6 @@ var maxDepth = function (root) {
 	if (children.length == 0) {
 		return 1;
 	}
+	// Remember that this is one way to get the max value in an array using reduce().
 	return children.reduce((a, b) => Math.max(a, b), -Infinity) + 1;
 };
