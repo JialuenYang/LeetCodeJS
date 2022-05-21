@@ -6,6 +6,7 @@ var numRookCaptures = function (board) {
 	// Find coordinates of Rook
 	let Rx = 0;
 	let Ry = 0;
+	// Use labels to break out of loops
 	loop: for (let i = 0; i < 8; i++) {
 		for (let j = 0; j < 8; j++) {
 			if (board[i][j] === "R") {
