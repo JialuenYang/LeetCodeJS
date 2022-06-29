@@ -16,14 +16,14 @@ var binaryTreePaths = function (root) {
 	return output;
 };
 
-var reachLeaf = function (node, str, output) {
-	if (node.left !== null) {
-		reachLeaf(node.left, `${str}->${node.left.val}`, output);
+var reachLeaf = function (parentNode, str, output) {
+	if (parentNode.left !== null) {
+		reachLeaf(parentNode.left, `${str}->${parentNode.left.val}`, output);
 	}
-	if (node.right !== null) {
-		reachLeaf(node.right, `${str}->${node.right.val}`, output);
+	if (parentNode.right !== null) {
+		reachLeaf(parentNode.right, `${str}->${parentNode.right.val}`, output);
 	}
-	if (node.left === null && node.right === null) {
+	if (parentNode.left === null && parentNode.right === null) {
 		output.push(str);
 	}
 };
