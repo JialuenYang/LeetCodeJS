@@ -22,3 +22,10 @@ var maxDepth = function (root) {
 	// Remember that this is one way to get the max value in an array using reduce().
 	return children.reduce((a, b) => Math.max(a, b), -Infinity) + 1;
 };
+
+// Another easier to understand way is this:
+let max = 0;
+for (const c of children) {
+	max = Math.max(max, c);
+}
+return max + 1;
