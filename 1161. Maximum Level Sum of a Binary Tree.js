@@ -16,7 +16,7 @@ var maxLevelSum = function (root) {
 	let nodes = [root];
 	while (nodes.length > 0) {
 		let sum = 0;
-		let children = [];
+		const children = [];
 		for (const node of nodes) {
 			sum += node.val;
 			if (node.left) {
