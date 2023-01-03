@@ -3,6 +3,8 @@
  * @return {number}
  */
 var dividePlayers = function (skill) {
+	// Time complexity can be linear by using a map instead of sorting the array
+
 	// Check if the sum can be evenly divided into pairs of 2.
 	let sum = 0;
 	for (const s of skill) {
