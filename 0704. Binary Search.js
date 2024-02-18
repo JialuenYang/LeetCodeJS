@@ -4,23 +4,19 @@
  * @return {number}
  */
 var search = function (nums, target) {
-	if (target < nums[0] || nums[nums.length - 1] < target) {
-		return -1;
-	}
-
-	const recursive = (leftIndex, rightIndex) => {
-		const midIndex = Math.floor((rightIndex - leftIndex) / 2) + leftIndex;
-		if (target == nums[midIndex]) {
-			return midIndex;
+	const recursive = (l, r) => {
+		const m = l + Math.floor((r - l) / 2);
+		if (target == nums[m]) {
+			return m;
 		}
-		if (leftIndex == rightIndex) {
+		if (l >= r) {
 			return -1;
 		}
-		if (target < nums[midIndex]) {
-			return recursive(leftIndex, midIndex - 1);
+		if (target < nums[m]) {
+			return recursive(l, m - 1);
 		}
-		if (target > nums[midIndex]) {
-			return recursive(midIndex + 1, rightIndex);
+		if (target > nums[m]) {
+			return recursive(m + 1, r);
 		}
 	};
 
