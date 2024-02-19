@@ -1,0 +1,20 @@
+/**
+ * @param {number[]} nums
+ * @param {number} m
+ * @return {boolean}
+ */
+var canSplitArray = function (nums, m) {
+	// Only need to check 2 consecutive numbers
+
+	if (nums.length <= 2) {
+		return true;
+	}
+
+	for (let i = 0; i < nums.length - 1; i++) {
+		if (nums[i] + nums[i + 1] >= m) {
+			return true;
+		}
+	}
+
+	return false;
+};
