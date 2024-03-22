@@ -3,98 +3,29 @@
  * @return {boolean}
  */
 var isValidSudoku = function (board) {
-	function smartAdd(aSet, str) {
-		if (str !== ".") {
-			aSet.add(str);
-		}
-	}
+	const rows = [...Array(9)].map((_) => new Set());
+	const cols = [...Array(9)].map((_) => new Set());
+	const subs = [...Array(9)].map((_) => new Set());
 
-	// Horizontal
-	for (let i = 0; i < 9; i++) {
-		const aSet = new Set();
-		for (let j = 0; j < 9; j++) {
-			if (aSet.has(board[i][j])) {
+	for (let i = 0; i < board.length; i++) {
+		for (let j = 0; j < board[0].length; j++) {
+			if (board[i][j] === ".") {
+				continue;
+			}
+
+			if (
+				rows[i].has(board[i][j]) ||
+				cols[j].has(board[i][j]) ||
+				subs[3 * Math.floor(i / 3) + Math.floor(j / 3)].has(board[i][j])
+			) {
 				return false;
 			}
-			smartAdd(aSet, board[i][j]);
+
+			rows[i].add(board[i][j]);
+			cols[j].add(board[i][j]);
+			subs[3 * Math.floor(i / 3) + Math.floor(j / 3)].add(board[i][j]);
 		}
 	}
 
-	// Vertical
-	for (let i = 0; i < 9; i++) {
-		const aSet = new Set();
-		for (let j = 0; j < 9; j++) {
-			if (aSet.has(board[j][i])) {
-				return false;
-			}
-			smartAdd(aSet, board[j][i]);
-		}
-	}
-
-	// The nine sectors
-	function sector(x, y) {
-		const aSet = new Set();
-
-		if (aSet.has(board[x][y])) {
-			return false;
-		}
-		smartAdd(aSet, board[x][y]);
-
-		if (aSet.has(board[x][y + 1])) {
-			return false;
-		}
-		smartAdd(aSet, board[x][y + 1]);
-
-		if (aSet.has(board[x][y + 2])) {
-			return false;
-		}
-		smartAdd(aSet, board[x][y + 2]);
-
-		if (aSet.has(board[x + 1][y])) {
-			return false;
-		}
-		smartAdd(aSet, board[x + 1][y]);
-
-		if (aSet.has(board[x + 1][y + 1])) {
-			return false;
-		}
-		smartAdd(aSet, board[x + 1][y + 1]);
-
-		if (aSet.has(board[x + 1][y + 2])) {
-			return false;
-		}
-		smartAdd(aSet, board[x + 1][y + 2]);
-
-		if (aSet.has(board[x + 2][y])) {
-			return false;
-		}
-		smartAdd(aSet, board[x + 2][y]);
-
-		if (aSet.has(board[x + 2][y + 1])) {
-			return false;
-		}
-		smartAdd(aSet, board[x + 2][y + 1]);
-
-		if (aSet.has(board[x + 2][y + 2])) {
-			return false;
-		}
-
-		return true;
-	}
-
-	if (
-		sector(0, 0) &&
-		sector(0, 3) &&
-		sector(0, 6) &&
-		sector(3, 0) &&
-		sector(3, 3) &&
-		sector(3, 6) &&
-		sector(6, 0) &&
-		sector(6, 3) &&
-		sector(6, 6)
-	) {
-		return true;
-	}
-
-	return false;
+	return true;
 };

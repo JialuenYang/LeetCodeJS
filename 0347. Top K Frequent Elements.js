@@ -4,6 +4,7 @@
  * @return {number[]}
  */
 var topKFrequent = function (nums, k) {
+	// Bucket sort. Array length of nums.length where index is frequency and value is array of nums.
 	const map = new Map();
 	for (const num of nums) {
 		if (map.has(num)) {
@@ -12,16 +13,19 @@ var topKFrequent = function (nums, k) {
 			map.set(num, 1);
 		}
 	}
-	// Make an array of objects of keys and values based on map
-	const arr = Array.from(map).map(([key, value]) => ({ key, value }));
-	const sorted = arr.sort((a, b) => {
-		if (a.value > b.value) {
-			return -1;
+	const freq = [...Array(nums.length)].map((_) => new Array());
+	for (const [key, val] of map) {
+		freq[val - 1].push(key);
+	}
+
+	let output = [];
+	let i = freq.length - 1;
+	while (k > 0) {
+		if (freq[i].length > 0) {
+			output.push(...freq[i]);
+			k -= freq[i].length;
 		}
-		if (a.value < b.value) {
-			return 1;
-		}
-		return 0;
-	});
-	return sorted.slice(0, k).map((element) => element.key);
+		i--;
+	}
+	return output;
 };
