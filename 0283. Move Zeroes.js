@@ -17,6 +17,7 @@ var moveZeroes = function (nums) {
 			}
 		}
 
+		// Make sure nonZ is an index after a zero
 		if (nonZ < zero) {
 			nonZ = zero + 1;
 		}
