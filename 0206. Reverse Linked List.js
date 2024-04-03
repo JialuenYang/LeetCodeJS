@@ -10,19 +10,21 @@
  * @return {ListNode}
  */
 var reverseList = function (head) {
-	// Use an array to hold the values
-	const arr = [];
-	let temp = head;
-	while (temp) {
-		arr.push(temp.val);
-		temp = temp.next;
+	// Base case of <= 1
+	if (!head || !head.next) {
+		return head;
 	}
-	temp = head;
-	let i = arr.length - 1;
-	while (temp) {
-		temp.val = arr[i];
-		i--;
-		temp = temp.next;
+
+	// Keep track of 2 nodes at a time
+	let n1 = head; // Second rightmost node
+	let n2 = n1.next; // Rightmost node
+	n1.next = null;
+	while (n2.next) {
+		const temp = n2.next;
+		n2.next = n1;
+		n1 = n2;
+		n2 = temp;
 	}
-	return head;
+	n2.next = n1; // n2 is now the rightmost node, but its next node needs to be set.
+	return n2;
 };
