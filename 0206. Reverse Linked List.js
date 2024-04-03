@@ -18,7 +18,7 @@ var reverseList = function (head) {
 	// Keep track of 2 nodes at a time
 	let n1 = head; // Second rightmost node
 	let n2 = n1.next; // Rightmost node
-	n1.next = null;
+	n1.next = null; // Leftmost node will be new end which has node.next = null
 	while (n2.next) {
 		const temp = n2.next;
 		n2.next = n1;
