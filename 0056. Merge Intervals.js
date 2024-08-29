@@ -3,20 +3,22 @@
  * @return {number[][]}
  */
 var merge = function (intervals) {
-	// Sort intervals by increasing start time. Then just compare the solution end time and interval start time to merge.
-
-	intervals = intervals.sort((a, b) => a[0] - b[0]);
-	const solution = [];
-	solution.push(intervals[0]);
+	intervals.sort((a, b) => a[0] - b[0]);
+	const output = [];
+	let temp = intervals[0];
 	for (const interval of intervals) {
-		if (interval[0] <= solution[solution.length - 1][1]) {
-			solution[solution.length - 1][1] = Math.max(
-				interval[1],
-				solution[solution.length - 1][1]
-			);
+		if (temp === null) {
+			temp = interval;
+		} else if (temp[1] < interval[0]) {
+			output.push(temp);
+			temp = interval;
 		} else {
-			solution.push(interval);
+			// Merge two intervals
+			temp = [Math.min(temp[0], interval[0]), Math.max(temp[1], interval[1])];
 		}
 	}
-	return solution;
+	if (temp !== null) {
+		output.push(temp);
+	}
+	return output;
 };
