@@ -21,7 +21,7 @@ var delNodes = function (root, to_delete) {
 	const set = new Set(to_delete);
 	const forest = [];
 
-	const recursion = (node, parentDeleted) => {
+	const recursion = (node, isParentDeleted) => {
 		if (!node) {
 			return;
 		}
@@ -31,22 +31,19 @@ var delNodes = function (root, to_delete) {
 			recursion(node.right, true);
 		} else {
 			// This node is not deleted.
-			if (parentDeleted) {
+			if (isParentDeleted) {
 				forest.push(node);
 			}
 
-			const left = node.left;
-			const right = node.right;
-			// If children nodes will be deleted, make sure this node's edges are removed.
-			if (set.has(left?.val)) {
+			recursion(node.left, false);
+			recursion(node.right, false);
+
+			if (set.has(node.left?.val)) {
 				node.left = null;
 			}
-			if (set.has(right?.val)) {
+			if (set.has(node.right?.val)) {
 				node.right = null;
 			}
-
-			recursion(left, false);
-			recursion(right, false);
 		}
 	};
 	recursion(root, true);
